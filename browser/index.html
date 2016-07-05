@@ -5,12 +5,15 @@
     <link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="/bootstrap-dark.css" rel="stylesheet" />
     <link href="/style.css" rel="stylesheet" />
+    <script src="angular/angular.min.js"></script>
+    <script src="javascripts/app.js"></script>
   </head>
-  <body>
-    <div id="main" class="container-fluid">
+  <body ng-app="juke">
 
-      <div class="col-xs-2">
-        <sidebar>
+    <div id="main" class="container-fluid">
+            <div class="col-xs-2">
+        <sidebar ng-controller="mainCtrl">
+          {{test}}
           <img src="juke.svg" class="logo">
           <section>
             <h4 class="menu-item active">
@@ -20,9 +23,39 @@
         </sidebar>
       </div>
 
-      <div class="col-xs-10"></div>
+      <div class="col-xs-10">
+        <div class="album" ng-controller="displayController">
+          <p>
+            <h3>{{fakeAlbum.name}}</h3>
+            <img src="{{fakeAlbum.imageUrl}}" class="img-thumbnail">
+          </p>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Artists</th>
+                <th>Genres</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="song in fakeAlbum.songs">
+                <td>
+                  <button class="btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-play"></span>
+                  </button>
+                </td>
+                <td>{{song.name}}</td>
+                <td>{{getArtist(song.artists)}}</td>
+                <td>{{song.genres.join(', ')}}</td>
+              </tr>
 
-      <footer></footer>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+        <footer></footer>
 
     </div>
   </body>
